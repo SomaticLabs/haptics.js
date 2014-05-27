@@ -16,12 +16,12 @@
         log;
 
     log = function(){
-		log.history = log.history || [];   // store logs to an array for reference
-		log.history.push(arguments);
-		if(this.console){
-			console.log( Array.prototype.slice.call(arguments) );
-		}
-	};
+        log.history = log.history || [];   // store logs to an array for reference
+        log.history.push(arguments);
+        if(this.console){
+            console.log( Array.prototype.slice.call(arguments) );
+        }
+    };
 
 
     enabled = vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
@@ -39,23 +39,23 @@
     }
 
     function onRecord(e) {
-    	e.preventDefault();
-    	currentRecording.push(new Date());
+        e.preventDefault();
+        currentRecording.push(new Date());
     }
     function record() {
-    	currentRecording = [];
-    	window.addEventListener("touchstart". onRecord, false);
-    	window.addEventListener("touchend". onRecord, false);
-    	window.addEventListener("mousedown", onRecord, false);
-    	window.addEventListener("mouseup". onRecord, false);
+        currentRecording = [];
+        window.addEventListener("touchstart". onRecord, false);
+        window.addEventListener("touchend". onRecord, false);
+        window.addEventListener("mousedown", onRecord, false);
+        window.addEventListener("mouseup". onRecord, false);
     }
     function finish() {
-    	log(currentRecording);
-    	window.removeEventListener("touchstart". onRecord);
-    	window.removeEventListener("touchend". onRecord);
-    	window.removeEventListener("mousedown", onRecord);
-    	window.removeEventListener("mouseup". onRecord);
-    	return currentRecording;
+        log(currentRecording);
+        window.removeEventListener("touchstart". onRecord);
+        window.removeEventListener("touchend". onRecord);
+        window.removeEventListener("mousedown", onRecord);
+        window.removeEventListener("mouseup". onRecord);
+        return currentRecording;
     }
 
 
