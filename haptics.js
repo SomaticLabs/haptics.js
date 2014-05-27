@@ -13,7 +13,18 @@
     var Haptics = {},
         enabled,
         currentRecording,
-        log;
+        log,
+        durations;
+
+    durations = {
+        'slow': 250,
+        'medium': 500,
+        'fast': 750
+    };
+
+    function getDuration (d) {
+        return durations[d] || d;
+    }
 
     log = function(){
         log.history = log.history || [];   // store logs to an array for reference
@@ -23,12 +34,15 @@
         }
     };
 
-
     enabled = vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
     if (enabled) {
         Haptics.vibrate = function () {
-            navigator.vibrate.apply(this, arguments);
+            var params = [], i, len;
+            for (i = 0, len = arguments.length; i < len; i += 1) {
+                params.push(getDuration(arguments[i]));
+            }
+            navigator.vibrate.apply(this, params);
             return true;
         };
     }
@@ -58,9 +72,9 @@
         return currentRecording;
     }
 
-
     Haptics.enabled = enabled;
     Haptics.record = record;
     Haptics.finish = finish;
+    Haptics.durations = durations;
     this.Haptics = Haptics;
 })();
