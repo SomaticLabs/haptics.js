@@ -79,7 +79,23 @@
         window.removeEventListener("touchend". onRecord);
         window.removeEventListener("mousedown", onRecord);
         window.removeEventListener("mouseup". onRecord);
-        return currentRecording;
+
+        if (currentRecording.length % 2 != 0)
+            currentRecording.push(new Date());
+
+        var vibrationPattern = [],
+            i,
+            j,
+            len;
+
+        for (i = 0; i < len; i += 2) {
+            j = i + 1;
+            if (! j < len)
+                break;
+            vibrationPattern.push(currentRecording[j] - currentRecording[i]);
+        }
+
+        return vibrationPattern;
     }
 
     // expose local functions to global API
@@ -90,7 +106,6 @@
 
     // set global object
     this.Haptics = Haptics;
-    if (window) {
+    if (window)
         window.Haptics = Haptics;
-    }
 })();
