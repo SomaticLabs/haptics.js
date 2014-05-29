@@ -43,13 +43,22 @@
 
     // expose a wrapped copy of 'vibrate' function
     if (enabled) {
-        Haptics.vibrate = function () {
+        Haptics.vibrate = function (args) {
             var params = [], i, len;
-            for (i = 0, len = arguments.length; i < len; i += 1) {
-                params.push(getDuration(arguments[i]));
+            if (typeof args == "number") {
+                vibrate(args);
+                return true;
             }
-            vibrate.apply(this, params);
-            return true;
+
+            if (args.length) {
+                for (i = 0, len = args.length; i < len; i += 1) {
+                    params.push(getDuration(args[i]));
+                }
+                vibrate.apply(this, params);
+                return true;
+            }
+
+            return false;
         };
     }
     else {
