@@ -8,7 +8,7 @@
 
 ;
 
-(function () {
+(function (global) {
     var Haptics = {},
         enabled,
         vibrate,
@@ -113,7 +113,5 @@
     Haptics.durations = durations;
 
     // set global object
-    this.Haptics = Haptics;
-    if (window)
-        window.Haptics = Haptics;
-})();
+    global.Haptics = Haptics;
+})(this);
