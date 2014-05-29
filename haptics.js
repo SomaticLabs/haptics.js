@@ -3,8 +3,7 @@
  * Copyright (c) Shantanu Bala 2014
  * http://sbala.org/haptics.js
  * shantanu@sbala.org
- * Available under an MIT License.
- *
+ * Available under the MIT License.
  */
 
 ;
