@@ -143,11 +143,11 @@
 
     // EFFECTS: notification
     function vibrateNotification(duration) {
-    	var pause, dot, dash;
-    	pause = duration / 27;
-    	dot = 2*pause;
-    	dash = 3*pause;
-    	vibrate([dot, pause, dot, pause, dot, pause*2, dash, pause, dash, pause*2, dot, pause, dot, pause, dot]);
+        var pause, dot, dash;
+        pause = duration / 27;
+        dot = 2*pause;
+        dash = 3*pause;
+        vibrate([dot, pause, dot, pause, dot, pause*2, dash, pause, dash, pause*2, dot, pause, dot, pause, dot]);
     }
 
     function notification(args) {
@@ -161,11 +161,11 @@
 
     // EFFECTS: heartbeat
     function vibrateHeartbeat(duration) {
-    	var pause, dot, dash;
-    	dot = duration / 60;
-    	pause = dot * 2;
-    	dash = dot * 24;
-    	vibrate([dot, pause, dash, pause * 2, dash, pause * 2, dot]);
+        var pause, dot, dash;
+        dot = duration / 60;
+        pause = dot * 2;
+        dash = dot * 24;
+        vibrate([dot, pause, dash, pause * 2, dash, pause * 2, dot]);
     }
 
     function heartbeat(args) {
@@ -179,11 +179,11 @@
 
     // EFFECTS: heartbeat
     function vibrateClunk(duration) {
-    	var pause, dot, dash;
-    	dot = duration * 4 / 22;
-    	pause = dot * 2;
-    	dash = dot / 2 * 5;
-    	vibrate([dot, pause, dash]);
+        var pause, dot, dash;
+        dot = duration * 4 / 22;
+        pause = dot * 2;
+        dash = dot / 2 * 5;
+        vibrate([dot, pause, dash]);
     }
 
     function clunk(args) {
@@ -197,15 +197,15 @@
 
     // EFFECTS: PWM
     function vibratePWM(duration, on, off) {
-    	var pattern = [on];
-    	duration -= on;
-    	while (duration > 0) {
-    		duration -= off;
-    		duration -= on;
-    		pattern.push(off);
-    		pattern.push(on);
-    	}
-    	vibrate(pattern);
+        var pattern = [on];
+        duration -= on;
+        while (duration > 0) {
+            duration -= off;
+            duration -= on;
+            pattern.push(off);
+            pattern.push(on);
+        }
+        vibrate(pattern);
     }
 
     function pwm(args) {
