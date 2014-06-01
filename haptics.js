@@ -210,10 +210,13 @@
 
     function pwm(args) {
         if (typeof args == "number") {
-            vibratePWM(args);
+            vibratePWM(args, on, off);
         }
         else {
-            executeSequence(args, vibratePWM, emptyFunc);
+            function newVibratePWM(d, on, off) {
+                vibratePWM(d, on, off);
+            }
+            executeSequence(args, newVibratePWM, emptyFunc);
         }
     }
 
