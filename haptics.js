@@ -220,6 +220,12 @@
         }
     }
 
+    function pwmFactory(on, off) {
+        return function (args) {
+            pwm(args, on, off);
+        }
+    }
+
     // expose local functions to global API
     Haptics.enabled = enabled;
     Haptics.record = record;
@@ -231,6 +237,7 @@
     Haptics.heartbeat = heartbeat;
     Haptics.clunk = clunk;
     Haptics.pwm = pwm;
+    Haptics.pwmFactory = pwmFactory;
 
     // set global object
     global.Haptics = Haptics;
