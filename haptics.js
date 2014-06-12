@@ -208,12 +208,12 @@
         vibrate(pattern);
     }
 
-    function pwm(args) {
+    function pwm(args, on, off) {
         if (typeof args == "number") {
             vibratePWM(args, on, off);
         }
         else {
-            function newVibratePWM(d, on, off) {
+            function newVibratePWM(d) {
                 vibratePWM(d, on, off);
             }
             executeSequence(args, newVibratePWM, emptyFunc);
