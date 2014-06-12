@@ -23,7 +23,7 @@
         log.history = log.history || [];
         log.history.push(arguments);
         if(global.console){
-            global.console.log( Array.prototype.slice.call(arguments) );
+            global.console.log(Array.prototype.slice.call(arguments));
         }
     };
 
