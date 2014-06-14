@@ -226,6 +226,28 @@
         }
     }
 
+    // a way to quickly create/compose new tactile animations
+    function patternFactory(funcs) {
+        var i = 0,
+            len = funcs.length;
+
+        function newPattern(duration) {
+            funcs[i](duration);
+            i += 1;
+            if (i == len) {
+                i = 0;
+            }
+        }
+        return function (args) {
+            if (typeof args == "number") {
+                newPattern(args);
+            }
+            else {
+                executeSequence(args, newPattern, emptyFunc);
+            }
+        }
+    }
+
     // expose local functions to global API
     Haptics.enabled = enabled;
     Haptics.record = record;
@@ -238,6 +260,7 @@
     Haptics.clunk = clunk;
     Haptics.pwm = pwm;
     Haptics.pwmFactory = pwmFactory;
+    Haptics.patternFactory = patternFactory;
 
     // set global object
     global.Haptics = Haptics;
