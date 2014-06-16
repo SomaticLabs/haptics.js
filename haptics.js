@@ -48,6 +48,20 @@
         }, d);
     }
 
+    // create a sequencing pattern function
+    function sequenceFactory(func) {
+        function newSequence(args) {
+            if (typeof args == "number") {
+                func(args);
+            }
+            else {
+                executeSequence(args, func, emptyFunc);
+            }
+        }
+
+        return newSequence;
+    }
+
     // expose a wrapped copy of 'vibrate' function
     if (enabled) {
         Haptics.vibrate = function (args) {
