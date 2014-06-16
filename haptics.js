@@ -11,7 +11,6 @@
 (function (global) {
     var Haptics = {},
         enabled,
-        vibrate,
         currentRecording,
         log;
 
