@@ -133,15 +133,6 @@
         vibrate(pulses);
     }
 
-    function fadeIn(args) {
-        if (typeof args == "number") {
-            vibrateFadeIn(args);
-        }
-        else {
-            executeSequence(args, vibrateFadeIn, emptyFunc);
-        }
-    }
-
     // EFFECTS: Fade Out
     function vibrateFadeOut(duration) {
         var pulses = [Haptics.resolution],
@@ -155,15 +146,6 @@
         vibrate(pulses);
     }
 
-    function fadeOut(args) {
-        if (typeof args == "number") {
-            vibrateFadeOut(args);
-        }
-        else {
-            executeSequence(args, vibrateFadeOut, emptyFunc);
-        }
-    }
-
     // EFFECTS: notification
     function vibrateNotification(duration) {
         var pause, dot, dash;
@@ -171,15 +153,6 @@
         dot = 2*pause;
         dash = 3*pause;
         vibrate([dot, pause, dot, pause, dot, pause*2, dash, pause, dash, pause*2, dot, pause, dot, pause, dot]);
-    }
-
-    function notification(args) {
-        if (typeof args == "number") {
-            vibrateNotification(args);
-        }
-        else {
-            executeSequence(args, vibrateNotification, emptyFunc);
-        }
     }
 
     // EFFECTS: heartbeat
@@ -191,15 +164,6 @@
         vibrate([dot, pause, dash, pause * 2, dash, pause * 2, dot]);
     }
 
-    function heartbeat(args) {
-        if (typeof args == "number") {
-            vibrateHeartbeat(args);
-        }
-        else {
-            executeSequence(args, vibrateHeartbeat, emptyFunc);
-        }
-    }
-
     // EFFECTS: heartbeat
     function vibrateClunk(duration) {
         var pause, dot, dash;
@@ -207,15 +171,6 @@
         pause = dot * 2;
         dash = dot / 2 * 5;
         vibrate([dot, pause, dash]);
-    }
-
-    function clunk(args) {
-        if (typeof args == "number") {
-            vibrateClunk(args);
-        }
-        else {
-            executeSequence(args, vibrateClunk, emptyFunc);
-        }
     }
 
     // EFFECTS: PWM
@@ -281,11 +236,11 @@
     Haptics.enabled = enabled;
     Haptics.record = record;
     Haptics.finish = finish;
-    Haptics.fadeIn = fadeIn;
-    Haptics.fadeOut = fadeOut;
-    Haptics.notification = notification;
-    Haptics.heartbeat = heartbeat;
-    Haptics.clunk = clunk;
+    Haptics.fadeIn = sequenceFactory(vibrateFadeIn);
+    Haptics.fadeOut = sequenceFactory(vibrateFadeOut);
+    Haptics.notification = sequenceFactory(vibrateNotification);
+    Haptics.heartbeat = sequenceFactory(vibrateHeartbeat);
+    Haptics.clunk = sequenceFactory(vibrateClunk);
     Haptics.pwm = pwm;
     Haptics.pwmFactory = pwmFactory;
     Haptics.patternFactory = patternFactory;
