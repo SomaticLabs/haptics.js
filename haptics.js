@@ -225,6 +225,7 @@
         }
     }
 
+    // a way to quickly create new PWM intensity functions
     function pwmFactory(on, off) {
         return function (args) {
             pwm(args, on, off);
