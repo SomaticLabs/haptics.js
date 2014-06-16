@@ -12,6 +12,7 @@
     var Haptics = {},
         enabled,
         currentRecording,
+        navigatorVibrate,
         log;
 
     Haptics.resolution = 10; // lower is sharper
