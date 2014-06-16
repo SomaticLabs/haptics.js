@@ -30,12 +30,15 @@
     // check for navigator variables from different vendors
     enabled = navigatorVibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
+    /* ensure calls to navigatorVibrate are always bound to the global
+        navigator object */
     function vibrate() {
         navigatorVibrate.apply(navigator, arguments);
     }
 
     enabled = !! enabled; // convert to boolean
 
+    // execute two functions timed using the provided durations
     function executeSequence(durations, currentFunc, nextFunc) {
         nextFunc = nextFunc || currentFunc;
         var d = durations.shift();
