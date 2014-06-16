@@ -49,7 +49,7 @@
     if (enabled) {
         Haptics.vibrate = function (args) {
             vibrate(args);
-            return false;
+            return true;
         };
     }
     else {
