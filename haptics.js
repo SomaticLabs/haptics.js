@@ -30,8 +30,7 @@
     // check for navigator variables from different vendors
     enabled = navigatorVibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
 
-    /* ensure calls to navigatorVibrate are always bound to the global
-        navigator object */
+    // calls to navigatorVibrate always bound to global navigator object
     function vibrate() {
         navigatorVibrate.apply(navigator, arguments);
     }
