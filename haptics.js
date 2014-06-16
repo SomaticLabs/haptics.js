@@ -28,7 +28,13 @@
     };
 
     // check for navigator variables from different vendors
-    enabled = vibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+    enabled = navigatorVibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+    function vibrate() {
+        navigatorVibrate.apply(navigator, arguments);
+    }
+
+    enabled = !! enabled; // convert to boolean
 
     function executeSequence(durations, currentFunc, nextFunc) {
         nextFunc = nextFunc || currentFunc;
