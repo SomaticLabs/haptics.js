@@ -252,7 +252,6 @@
     Haptics.enabled = enabled;
     Haptics.record = record;
     Haptics.finish = finish;
-    Haptics.durations = durations;
     Haptics.fadeIn = fadeIn;
     Haptics.fadeOut = fadeOut;
     Haptics.notification = notification;
