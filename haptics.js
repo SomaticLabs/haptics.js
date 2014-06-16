@@ -232,15 +232,20 @@
     }
 
     // a way to quickly create/compose new tactile animations
-    function patternFactory(funcs) {
-        var i = 0,
-            len = funcs.length;
+    function patternFactory() {
+        var len = funcs.length,
+            funcs = arguments;
 
         function newPattern(duration) {
-            funcs[i](duration);
-            i += 1;
-            if (i == len) {
-                i = 0;
+            var i = 0,
+                d = duration / len;
+
+            function executeCurrentFunc() {
+                funcs[i](d);
+            }
+
+            for (i = 0; i < len; i += 1) {
+                global.setTimeout(executeCurrentFunc, d);
             }
         }
         return function (args) {
