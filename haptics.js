@@ -22,6 +22,7 @@
         // store logs to an array for reference
         log.history = log.history || [];
         log.history.push(arguments);
+
         if(global.console){
             global.console.log(Array.prototype.slice.call(arguments));
         }
@@ -39,9 +40,10 @@
 
     // execute two functions timed using the provided durations
     function executeSequence(durations, currentFunc, nextFunc) {
-        nextFunc = nextFunc || currentFunc;
         var d = durations.shift();
+        nextFunc = nextFunc || currentFunc;
         currentFunc(d);
+
         return window.setTimeout(function () {
             executeSequence(durations, nextFunc, currentFunc);
         }, d);
@@ -110,8 +112,11 @@
 
         for (i = 0; i < len; i += 2) {
             j = i + 1;
-            if (! j < len)
+
+            if (! j < len) {
                 break;
+            }
+
             vibrationPattern.push(currentRecording[j] - currentRecording[i]);
         }
 
@@ -124,10 +129,12 @@
             len = duration / Haptics.resolution,
             resolution = Haptics.resolution,
             i;
+
         for (i = 1; i <= len; i += 1) {
             pulses.push(resolution);
             pulses.push(i * resolution);
         }
+
         pulses.reverse();
         vibrate(pulses);
     }
@@ -138,10 +145,12 @@
             len = duration / Haptics.resolution,
             resolution = Haptics.resolution,
             i;
+
         for (i = 1; i <= len; i += 1) {
             pulses.push(resolution);
             pulses.push(i * resolution);
         }
+
         vibrate(pulses);
     }
 
@@ -176,12 +185,14 @@
     function vibratePWM(duration, on, off) {
         var pattern = [on];
         duration -= on;
+
         while (duration > 0) {
             duration -= off;
             duration -= on;
             pattern.push(off);
             pattern.push(on);
         }
+
         vibrate(pattern);
     }
 
@@ -221,6 +232,7 @@
                 global.setTimeout(executeCurrentFunc, d);
             }
         }
+
         return function (args) {
             if (typeof args == "number") {
                 newPattern(args);
