@@ -75,6 +75,32 @@ mediumPWM(500);</pre>
             <pre>var mediumPWM = Haptics.pwmFactory(30, 10);
 mediumPWM([500, 100, 500]);</pre>
           </section>
+          <section>
+            <h2>Create Custom Vibration Patterns</h2>
+            <p>In addition to using the patterns provided, Haptics.js provides a set of utilities that allow you to quickly create your own vibration patterns. You can use a function, an array, or a set of functions.</p>
+            <h3>Create a Pattern Function</h3>
+            <p>Every pattern function must accept a single integer value for duration. Here is an example:</p>
+            <pre>function newPattern(duration) {
+    var chunk = duration / 3;
+    Haptics.vibrate([chunk, chunk, chunk]);
+}</pre>
+            <p>The above pattern <code>newPattern</code> will take a duration and turn on the vibration motor for a third of the duration, pause for a third of the duration, and turn the motor on again for a third of the duration. To allow your pattern to accept arrays of integers, Haptics.js provides a <code>Haptics.sequenceFactory</code> utility:</p>
+            <pre>Haptics.thirdPattern = Haptics.sequenceFactory(newPattern);</pre>
+            <p>From here, the function <code>Haptics.thirdPattern</code> can be used just like <code>Haptics.vibrate</code> -- it will accept either an integer or an array of integer durations:</p>
+            <pre>Haptics.thirdPattern([500, 100, 500]);
+Haptics.thirdPattern(500);</pre>
+            <h3>Create a Duration Array</h3>
+            <p>The <code>Haptics.sequenceFactor</code> function doesn't just accept a function as a parameter -- it also accepts arrays. Instead of creating a function that takes the duration as input, you can specify integer values that act as ratios. This feature is easiest to illustrate with a quick example:</p>
+            <pre>Haptics.thirdPattern = Haptics.sequenceFactory([1, 1, 1]);</pre>
+            <p>The above code creates an equivalent <code>Haptics.thirdPattern</code> function with fewer lines of code. The ratios can be modified a little bit:</p>
+            <pre>Haptics.fifthPattern = Haptics.sequenceFactory([2, 1, 2]);
+Haptics.fifthPattern(500);</pre>
+            <p>The above code will result in a 200ms vibration, followed by a 100ms pause, followed by a 200ms vibration. Note that integer division is used to generate the final vibration pattern, so durations may be off by up to 1ms for each pulse.</p>
+            <h3>Combine Existing Patterns</h3>
+            <p>Two or more vibration patterns can be quickly combined into a single pattern using the <code>Haptics.patternFactory</code> function. Simply provide each pattern as a parameter. For example, to create a vibration that fades in and then fades out, you can combine the <code>Haptics.fadeIn</code> and <code>Haptics.fadeOut</code> functions as shown below:</p>
+            <pre>Haptics.fadeInOut = Haptics.patternFactory(Haptics.fadeIn, Haptics.fadeOut);</pre>
+            <p>As you can see, Haptics.js is not just a way to turn on the vibration motor. Instead, it's a fun framework for building more interesting temporal patterns and vibrotactile sensations. Enjoy!</p>
+          </section>
         </div>
       </div>
     </div>
