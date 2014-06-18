@@ -3,69 +3,78 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Haptics.js by shantanubala</title>
-
+    <title>Haptics.js by Shantanu Bala</title>
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Haptics.js</h1>
-        <p>A library for enabling haptic effects on web sites using HTML5.</p>
-
-        <p class="view"><a href="https://github.com/shantanubala/haptics.js">View the Project on GitHub <small>shantanubala/haptics.js</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/shantanubala/haptics.js/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/shantanubala/haptics.js/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/shantanubala/haptics.js">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/shantanubala">shantanubala</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4">
+          <header>
+            <h1>Haptics.js</h1>
+            <p>A library for enabling haptic effects on web sites using HTML5. In addition to providing a cross-browser wrapper, haptics.js also allows you to quickly create new tactile effects using vibrations.</p>
+            <a class="btn btn-primary btn-block btn-lg" href="https://github.com/shantanubala/haptics.js/zipball/master">Download</a>
+            <a class="btn btn-default btn-block" href="https://github.com/shantanubala/haptics.js">View On GitHub</a>
+          </header>
+        </div>
+        <div class="col-lg-8">
+          <section>
+            <h2>Deliver vibrations on the web.</h2>
+            <p>Haptics.js is a simple JavaScript library that allows you to implement vibrotactile effects using the HTML5 implementation of <code>navigator.vibrate</code>. In addition to providing a cross-browser compatibility layer, Haptics.js allows you to quickly create different vibrotactile effects, including fading vibrations, heartbeats, notifications, and error alerts.</p>
+            <h3>Open Source License</h3>
+            <p>Haptics.js is available under the <a href="https://github.com/shantanubala/haptics.js/blob/master/LICENSE">MIT License</a>, and can be used and redistributed freely. If you make improvements, please contibute them back to the community!</p>
+            <h3>Browser Compatibility</h3>
+            <p>Haptics.js is supported by all browsers that implement the HTML5 <code>navigator.vibrate</code> API. As of 2014, Firefox, Chrome, and Opera have implemented this API.</p>
+          </section>
+          <section>
+            <h2>Get started in 10 minutes.</h2>
+            <p>Getting started with Haptics.js is easy! First, include the JavaScript file in your page using a <code>&lt;script&gt;</code> tag:</p>
+            <pre>&lt;script type="text/javascript" src="//raw.githubusercontent.com/shantanubala/haptics.js/master/haptics.js"&gt;&lt;/script&gt;</pre>
+            <p>We only recommend using GitHub for testing and prototyping. Once you're ready to deploy in production, <a href="https://raw.githubusercontent.com/shantanubala/haptics.js/master/haptics.js">download the haptics.js file</a> and serve it from your own server or CDN directly -- it will load much faster.</p>
+            <h3>Deliver a Vibration</h3>
+            <p>Haptics.js provides a cross-browser <code>vibrate</code> function that accepts a single duration or array with durations and gaps. The following causes a device to vibrate for 200 milliseconds:</p>
+            <pre>Haptics.vibrate(200);</pre>
+            <p>Haptics.js also allows you to create temporal patterns of vibration. The following code vibrates for 400ms, pauses for 200ms, vibrates for 1,000ms, pauses for 200ms, and vibrates for 400ms:</p>
+            <pre>Haptics.vibrate([400, 200, 1000, 200, 400]);</pre>
+            <h3>Feel a Beat</h3>
+            <p>In addition to allowing you to send individual pulses of vibration, Haptics.js includes a number of built-in effects that can help you quickly create a more interactive application. A heartbeat is a great way to indicate loading or pace:</p>
+            <pre>Haptics.heartbeat(1000);</pre>
+            <p>The above code runs a "heartbeat" pattern lasting for 1 second. You can also provide an array of durations with the same API as <code>Haptics.vibrate</code>:</p>
+            <pre>Haptics.heartbeat([1000, 500, 1000]);</pre>
+            <p>The code above will present the user with a heartbeat for 1 second, pause for 500ms, and then present a second heartbeat for 1 second.</p>
+            <h3>Get a Fade</h3>
+            <p>In addition to heartbeats, you can fade in with vibration:</p>
+            <pre>Haptics.fadeIn(1000);</pre>
+            <p>You can also provide a sequences of vibrations that fade in:</p>
+            <pre>Haptics.fadeIn([500, 100, 500]);</pre>
+            <p>You can also fade out:</p>
+            <pre>Haptics.fadeOut(1000);</pre>
+            <p>Likewise, you can provide a sequence of vibrations that fade out:</p>
+            <pre>Haptics.fadeOut([500, 100, 500]);</pre>
+          </section>
+          <section>
+            <h2>Pulse Width Modulation (PWM)</h2>
+            <p>Vibration motors in most cell phones don't allow you to control the intensity of vibration. Instead, they have binary states -- "on" and "off". To simulate the feeling of a less intense vibration, you can use <a href="http://en.wikipedia.org/wiki/Pulse-width_modulation">pulse width modulation</a> to rapidly turn the vibration motor on and off. Since the vibration motor is only on for a fraction of the time, it feels like a less intense vibration.</p>
+            <h3>PWM in Haptics.js</h3>
+            <p>Haptics.js provides a simple PWM implementation:</p>
+            <pre>var on = 30, off = 10, duration = 500;
+Haptics.pwm(duration, on, off);</pre>
+            <p>The above code will create a vibration lasting 500ms consisting of small vibrotactile pulses lasting 30ms in duration with a 10ms gap between each pulse to reduce the overall intensity.</p>
+          </section>
+        </div>
+      </div>
     </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="javascripts/scale.fix.js"></script>
-    
+
   </body>
 </html>
