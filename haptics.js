@@ -282,8 +282,8 @@
     Haptics.heartbeat = sequenceFactory(vibrateHeartbeat);
     Haptics.clunk = sequenceFactory(vibrateClunk);
     Haptics.pwm = pwm;
-    Haptics.pwmFactory = pwmFactory;
-    Haptics.patternFactory = patternFactory;
+    Haptics.createPatternPWM = pwmFactory;
+    Haptics.createPattern = sequenceFactory;
 
     // set global object
     global.Haptics = Haptics;
