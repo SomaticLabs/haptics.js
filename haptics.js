@@ -44,7 +44,7 @@
         nextFunc = nextFunc || currentFunc;
         currentFunc(d);
 
-        return window.setTimeout(function () {
+        return global.setTimeout(function () {
             executeSequence(durations, nextFunc, currentFunc);
         }, d);
     }
@@ -118,18 +118,18 @@
     // begin recording a sequence of taps/clicks
     function record() {
         currentRecording = [];
-        window.addEventListener("touchstart". onRecord, false);
-        window.addEventListener("touchend". onRecord, false);
-        window.addEventListener("mousedown", onRecord, false);
-        window.addEventListener("mouseup". onRecord, false);
+        global.addEventListener("touchstart". onRecord, false);
+        global.addEventListener("touchend". onRecord, false);
+        global.addEventListener("mousedown", onRecord, false);
+        global.addEventListener("mouseup". onRecord, false);
     }
     // complete a recording of a sequence of taps/clicks
     function finish() {
         log(currentRecording);
-        window.removeEventListener("touchstart". onRecord);
-        window.removeEventListener("touchend". onRecord);
-        window.removeEventListener("mousedown", onRecord);
-        window.removeEventListener("mouseup". onRecord);
+        global.removeEventListener("touchstart". onRecord);
+        global.removeEventListener("touchend". onRecord);
+        global.removeEventListener("mousedown", onRecord);
+        global.removeEventListener("mouseup". onRecord);
 
         if (currentRecording.length % 2 != 0)
             currentRecording.push(new Date());
