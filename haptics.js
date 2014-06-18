@@ -50,7 +50,36 @@
     }
 
     // create a sequencing pattern function
-    function sequenceFactory(func) {
+    function sequenceFactory() {
+        var func;
+
+        if (arguments.length == 1) {
+            func = arguments[0];
+        }
+        else {
+            func = patternFactory.apply(this, arguments);
+        }
+
+        if (typeof func != "function" && func.length) {
+            var durations = func, sum = 0, i = 0, len;
+            for (i = 0, len = durations.length; i < len; i += 1) {
+                sum += durations[i];
+            }
+
+            func = function (duration) {
+                var d = duration / sum,
+                    newVibration = [],
+                    i,
+                    len;
+
+                for (i = 0, len = durations.length; i < len; i += 1) {
+                    newVibration.push(durations[i] * d);
+                }
+
+                Haptics.vibrate(newVibration);
+            };
+        }
+
         function newSequence(args) {
             if (typeof args == "number") {
                 func(args);
