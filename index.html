@@ -67,6 +67,13 @@
             <pre>var on = 30, off = 10, duration = 500;
 Haptics.pwm(duration, on, off);</pre>
             <p>The above code will create a vibration lasting 500ms consisting of small vibrotactile pulses lasting 30ms in duration with a 10ms gap between each pulse to reduce the overall intensity.</p>
+            <h3>Creating PWM Functions</h3>
+            <p>You can create a shortcut for your own PWM settings using the <code>Haptics.pwmFactory</code> function. The code below delivers the same PWM pulse as the code above, but it creates a reusable function with the desired settings:</p>
+            <pre>var mediumPWM = Haptics.pwmFactory(30, 10);
+mediumPWM(500);</pre>
+            <p>Any functions created using <code>Haptics.pwmFactory</code> follow the same conventions as <code>Haptics.vibrate</code>, and also accept arrays as parameters:</p>
+            <pre>var mediumPWM = Haptics.pwmFactory(30, 10);
+mediumPWM([500, 100, 500]);</pre>
           </section>
         </div>
       </div>
