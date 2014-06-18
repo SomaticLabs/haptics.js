@@ -269,7 +269,7 @@
             else {
                 executeSequence(args, newPattern, emptyFunc);
             }
-        }
+        };
     }
 
     // expose local functions to global API
