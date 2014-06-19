@@ -180,32 +180,38 @@
 
     // EFFECTS: Fade In
     function vibrateFadeIn(duration) {
-        var pulses = [Haptics.resolution],
-            len = duration / Haptics.resolution,
-            resolution = Haptics.resolution,
+        var pulses = [],
+            d,
             i;
 
-        for (i = 1; i <= len; i += 1) {
-            pulses.push(resolution);
-            pulses.push(i * resolution);
+        if (duration < 100) {
+            pulses = duration;
+        } else if (duration < 1000) {
+            d = duration / 100;
+            for (i = 1; i <= 10; i += 1) {
+                pulses.push(i * d);
+                pulses.push((10 - i) * d);
+            }
         }
-
-        pulses.reverse();
         vibrate(pulses);
     }
 
     // EFFECTS: Fade Out
     function vibrateFadeOut(duration) {
-        var pulses = [Haptics.resolution],
-            len = duration / Haptics.resolution,
-            resolution = Haptics.resolution,
+        var pulses = [],
+            d,
             i;
 
-        for (i = 1; i <= len; i += 1) {
-            pulses.push(resolution);
-            pulses.push(i * resolution);
+        if (duration < 100) {
+            pulses = duration;
+        } else if (duration < 1000) {
+            d = duration / 100;
+            for (i = 1; i <= 10; i += 1) {
+                pulses.push(i * d);
+                pulses.push((10 - i) * d);
+            }
+            pulses.reverse();
         }
-
         vibrate(pulses);
     }
 
