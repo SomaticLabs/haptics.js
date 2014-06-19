@@ -17,7 +17,6 @@
         log,
         navigator;
 
-    Haptics.resolution = 10; // lower is sharper
     navigator = global.navigator;
 
     // a console.log wrapper for debugging
