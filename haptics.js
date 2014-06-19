@@ -45,22 +45,27 @@
         if (enabled) {
             // vibrate will not work unless bound to navigator global
             navigatorVibrate.apply(navigator, arguments);
-            return true; // vibrations enabled
+            return true;
         }
 
         // log instead of actually vibrating device if disabled
         log(arguments);
-        return false; // vibrations disabled=
+        return false;
     }
 
     // execute two functions timed using the provided durations
     function executeSequence(durations, currentFunc, nextFunc) {
-        var d = durations.shift(); // pop first duration
+        var d = durations.shift();
         nextFunc = nextFunc || currentFunc;
+
         currentFunc(d);
 
-        // handle remaining durations set
+        if (durations.length == 0)
+            return true; // finished executing sequence
+
+        // handle remaining durations
         return global.setTimeout(function () {
+            // swap order of next and currentFunc
             return executeSequence(durations, nextFunc, currentFunc);
         }, d);
     }
@@ -68,10 +73,11 @@
     // a way to quickly create/compose new tactile animations
     function patternFactory() {
         var len,
-            funcs = arguments;
+            funcs = arguments; // each argument is a pattern being combined
 
         len = funcs.length;
 
+        // create pattern that loops through and executes provided functions
         function newPattern(duration) {
             var i = 0,
                 d = duration / len;
