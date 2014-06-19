@@ -1,0 +1,15 @@
+body {
+    font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+pre, code {
+    font-family: "Source Code Pro", Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+h1, h2 {
+    font-weight: 700;
+}
+
+h3, h4, h5, h6 {
+    font-weight: 600;
+}
