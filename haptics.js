@@ -41,6 +41,7 @@
 
     // calls to navigatorVibrate always bound to global navigator object
     function vibrate() {
+        log(arguments);
         navigatorVibrate.apply(navigator, arguments);
     }
 
