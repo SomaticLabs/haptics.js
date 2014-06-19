@@ -36,30 +36,32 @@
     }
 
     // check for navigator variables from different vendors
-    enabled = navigatorVibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+    navigatorVibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
+
+    enabled = !!navigatorVibrate;
 
     // calls to navigatorVibrate always bound to global navigator object
     function vibrate() {
-        log(arguments);
-
         if (enabled) {
+            // vibrate will not work unless bound to navigator global
             navigatorVibrate.apply(navigator, arguments);
-            return true;
+            return true; // vibrations enabled
+        } else {
+            // log instead of actually vibrating device
+            log(arguments);
+            return false; // vibrations disabled
         }
-
-        return false;
     }
-
-    enabled = !!enabled; // convert to boolean
 
     // execute two functions timed using the provided durations
     function executeSequence(durations, currentFunc, nextFunc) {
-        var d = durations.shift();
+        var d = durations.shift(); // pop first duration
         nextFunc = nextFunc || currentFunc;
         currentFunc(d);
 
+        // handle remaining durations set
         return global.setTimeout(function () {
-            executeSequence(durations, nextFunc, currentFunc);
+            return executeSequence(durations, nextFunc, currentFunc);
         }, d);
     }
 
