@@ -46,11 +46,11 @@
             // vibrate will not work unless bound to navigator global
             navigatorVibrate.apply(navigator, arguments);
             return true; // vibrations enabled
-        } else {
-            // log instead of actually vibrating device
-            log(arguments);
-            return false; // vibrations disabled
         }
+
+        // log instead of actually vibrating device if disabled
+        log(arguments);
+        return false; // vibrations disabled=
     }
 
     // execute two functions timed using the provided durations
