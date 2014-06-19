@@ -180,7 +180,7 @@
 
         if (duration < 100) {
             pulses = duration;
-        } else if (duration < 1000) {
+        } else {
             d = duration / 100;
             for (i = 1; i <= 10; i += 1) {
                 pulses.push(i * d);
@@ -198,7 +198,7 @@
 
         if (duration < 100) {
             pulses = duration;
-        } else if (duration < 1000) {
+        } else {
             d = duration / 100;
             for (i = 1; i <= 10; i += 1) {
                 pulses.push(i * d);
