@@ -6,27 +6,35 @@
  * Available under the MIT License.
  */
 
-;
+
+"use strict";
 
 (function (global) {
     var Haptics = {},
         enabled,
         currentRecording,
         navigatorVibrate,
-        log;
+        log,
+        navigator;
 
     Haptics.resolution = 10; // lower is sharper
+    navigator = global.navigator;
 
     // a console.log wrapper for debugging
-    log = function(){
+    log = function () {
         // store logs to an array for reference
         log.history = log.history || [];
         log.history.push(arguments);
 
-        if(global.console){
+        if (global.console) {
             global.console.log(Array.prototype.slice.call(arguments));
         }
     };
+
+    // used for timeouts that 'accomplish nothing' in a pattern
+    function emptyFunc() {
+        log("Executed emptyFunc, which does nothing.");
+    }
 
     // check for navigator variables from different vendors
     enabled = navigatorVibrate = navigator.vibrate || navigator.webkitVibrate || navigator.mozVibrate || navigator.msVibrate;
@@ -36,7 +44,7 @@
         navigatorVibrate.apply(navigator, arguments);
     }
 
-    enabled = !! enabled; // convert to boolean
+    enabled = !!enabled; // convert to boolean
 
     // execute two functions timed using the provided durations
     function executeSequence(durations, currentFunc, nextFunc) {
@@ -49,18 +57,42 @@
         }, d);
     }
 
-    // create a sequencing pattern function
-    function sequenceFactory() {
-        var func;
+    // a way to quickly create/compose new tactile animations
+    function patternFactory() {
+        var len,
+            funcs = arguments;
 
-        if (arguments.length == 1) {
-            func = arguments[0];
+        len = funcs.length;
+
+        function newPattern(duration) {
+            var i = 0,
+                d = duration / len;
+
+            function executeCurrentFunc() {
+                funcs[i](d);
+            }
+
+            for (i = 0; i < len; i += 1) {
+                global.setTimeout(executeCurrentFunc, d);
+            }
         }
-        else {
+
+        return function (args) {
+            if (typeof args === "number") {
+                newPattern(args);
+            } else {
+                executeSequence(args, newPattern, emptyFunc);
+            }
+        };
+    }
+
+    // create a sequencing pattern function
+    function sequenceFactory(func) {
+        if (arguments.length > 1) {
             func = patternFactory.apply(this, arguments);
         }
 
-        if (typeof func != "function" && func.length) {
+        if (typeof func !== "function" && func.length) {
             var durations = func, sum = 0, i = 0, len;
             for (i = 0, len = durations.length; i < len; i += 1) {
                 sum += durations[i];
@@ -69,11 +101,11 @@
             func = function (duration) {
                 var d = duration / sum,
                     newVibration = [],
-                    i,
-                    len;
+                    j,
+                    len2;
 
-                for (i = 0, len = durations.length; i < len; i += 1) {
-                    newVibration.push(durations[i] * d);
+                for (j = 0, len2 = durations.length; j < len2; j += 1) {
+                    newVibration.push(durations[j] * d);
                 }
 
                 Haptics.vibrate(newVibration);
@@ -81,10 +113,9 @@
         }
 
         function newSequence(args) {
-            if (typeof args == "number") {
+            if (typeof args === "number") {
                 func(args);
-            }
-            else {
+            } else {
                 executeSequence(args, func, emptyFunc);
             }
         }
@@ -98,16 +129,10 @@
             vibrate(args);
             return true;
         };
-    }
-    else {
+    } else {
         Haptics.vibrate = function () {
             return false;
         };
-    }
-
-    // used for timeouts that 'accomplish nothing' in a pattern
-    function emptyFunc() {
-        // do nothing
     }
 
     // handle click/touch event
@@ -118,31 +143,32 @@
     // begin recording a sequence of taps/clicks
     function record() {
         currentRecording = [];
-        global.addEventListener("touchstart". onRecord, false);
-        global.addEventListener("touchend". onRecord, false);
+        global.addEventListener("touchstart", onRecord, false);
+        global.addEventListener("touchend", onRecord, false);
         global.addEventListener("mousedown", onRecord, false);
-        global.addEventListener("mouseup". onRecord, false);
+        global.addEventListener("mouseup", onRecord, false);
     }
     // complete a recording of a sequence of taps/clicks
     function finish() {
         log(currentRecording);
-        global.removeEventListener("touchstart". onRecord);
-        global.removeEventListener("touchend". onRecord);
+        global.removeEventListener("touchstart", onRecord);
+        global.removeEventListener("touchend", onRecord);
         global.removeEventListener("mousedown", onRecord);
-        global.removeEventListener("mouseup". onRecord);
+        global.removeEventListener("mouseup", onRecord);
 
-        if (currentRecording.length % 2 != 0)
+        if (currentRecording.length % 2 !== 0) {
             currentRecording.push(new Date());
+        }
 
         var vibrationPattern = [],
             i,
             j,
             len;
 
-        for (i = 0; i < len; i += 2) {
+        for (i = 0, len = currentRecording.length; i < len; i += 2) {
             j = i + 1;
 
-            if (! j < len) {
+            if (j >= len) {
                 break;
             }
 
@@ -187,9 +213,9 @@
     function vibrateNotification(duration) {
         var pause, dot, dash;
         pause = duration / 27;
-        dot = 2*pause;
-        dash = 3*pause;
-        vibrate([dot, pause, dot, pause, dot, pause*2, dash, pause, dash, pause*2, dot, pause, dot, pause, dot]);
+        dot = 2 * pause;
+        dash = 3 * pause;
+        vibrate([dot, pause, dot, pause, dot, pause * 2, dash, pause, dash, pause * 2, dot, pause, dot, pause, dot]);
     }
 
     // EFFECTS: heartbeat
@@ -226,13 +252,13 @@
     }
 
     function pwm(args, on, off) {
-        if (typeof args == "number") {
+        var newVibratePWM;
+        if (typeof args === "number") {
             vibratePWM(args, on, off);
-        }
-        else {
-            function newVibratePWM(d) {
+        } else {
+            newVibratePWM = function (d) {
                 vibratePWM(d, on, off);
-            }
+            };
             executeSequence(args, newVibratePWM, emptyFunc);
         }
     }
@@ -241,34 +267,6 @@
     function pwmFactory(on, off) {
         return function (args) {
             pwm(args, on, off);
-        }
-    }
-
-    // a way to quickly create/compose new tactile animations
-    function patternFactory() {
-        var len = funcs.length,
-            funcs = arguments;
-
-        function newPattern(duration) {
-            var i = 0,
-                d = duration / len;
-
-            function executeCurrentFunc() {
-                funcs[i](d);
-            }
-
-            for (i = 0; i < len; i += 1) {
-                global.setTimeout(executeCurrentFunc, d);
-            }
-        }
-
-        return function (args) {
-            if (typeof args == "number") {
-                newPattern(args);
-            }
-            else {
-                executeSequence(args, newPattern, emptyFunc);
-            }
         };
     }
 
@@ -287,4 +285,4 @@
 
     // set global object
     global.Haptics = Haptics;
-})(this);
+}(this));
