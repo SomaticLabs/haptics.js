@@ -42,7 +42,13 @@
     // calls to navigatorVibrate always bound to global navigator object
     function vibrate() {
         log(arguments);
-        navigatorVibrate.apply(navigator, arguments);
+
+        if (enabled) {
+            navigatorVibrate.apply(navigator, arguments);
+            return true;
+        }
+
+        return false;
     }
 
     enabled = !!enabled; // convert to boolean
@@ -122,18 +128,6 @@
         }
 
         return newSequence;
-    }
-
-    // expose a wrapped copy of 'vibrate' function
-    if (enabled) {
-        Haptics.vibrate = function (args) {
-            vibrate(args);
-            return true;
-        };
-    } else {
-        Haptics.vibrate = function () {
-            return false;
-        };
     }
 
     // handle click/touch event
@@ -289,6 +283,7 @@
     Haptics.pwm = pwm;
     Haptics.createPatternPWM = pwmFactory;
     Haptics.createPattern = sequenceFactory;
+    Haptics.vibrate = vibrate;
 
     // set global object
     global.Haptics = Haptics;
