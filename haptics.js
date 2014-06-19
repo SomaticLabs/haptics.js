@@ -231,7 +231,7 @@
         vibrate([dot, pause, dash, pause * 2, dash, pause * 2, dot]);
     }
 
-    // EFFECTS: heartbeat
+    // EFFECTS: clunk
     function vibrateClunk(duration) {
         var pause, dot, dash;
         dot = duration * 4 / 22;
