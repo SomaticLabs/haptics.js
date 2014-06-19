@@ -184,7 +184,7 @@
             d = duration / 100;
             for (i = 1; i <= 10; i += 1) {
                 pulses.push(i * d);
-                pulses.push((10 - i) * d);
+                if (i < 10) pulses.push((10 - i) * d);
             }
         }
         vibrate(pulses);
@@ -202,7 +202,7 @@
             d = duration / 100;
             for (i = 1; i <= 10; i += 1) {
                 pulses.push(i * d);
-                pulses.push((10 - i) * d);
+                if (i < 10) pulses.push((10 - i) * d);
             }
             pulses.reverse();
         }
