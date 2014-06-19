@@ -60,8 +60,9 @@
 
         currentFunc(d);
 
-        if (durations.length == 0)
+        if (durations.length === 0) {
             return true; // finished executing sequence
+        }
 
         // handle remaining durations
         return global.setTimeout(function () {
@@ -70,12 +71,39 @@
         }, d);
     }
 
+    function createSequenceFunc(durations) {
+        var sum = 0, i = 0, len;
+        for (i = 0, len = durations.length; i < len; i += 1) {
+            sum += durations[i];
+        }
+
+        return function (duration) {
+            var d = duration / sum,
+                newVibration = [],
+                j,
+                len2;
+
+            for (j = 0, len2 = durations.length; j < len2; j += 1) {
+                newVibration.push(durations[j] * d);
+            }
+
+            Haptics.vibrate(newVibration);
+        };
+    }
+
     // a way to quickly create/compose new tactile animations
     function patternFactory() {
         var len,
+            j,
             funcs = arguments; // each argument is a pattern being combined
 
         len = funcs.length;
+
+        for (j = 0; j < len; j += 1) {
+            if (typeof funcs[j] !== "function") {
+                funcs[j] = createSequenceFunc(funcs[j]);
+            }
+        }
 
         // create pattern that loops through and executes provided functions
         function newPattern(duration) {
@@ -104,26 +132,10 @@
     function sequenceFactory(func) {
         if (arguments.length > 1) {
             func = patternFactory.apply(this, arguments);
-        }
-
-        if (typeof func !== "function" && func.length) {
-            var durations = func, sum = 0, i = 0, len;
-            for (i = 0, len = durations.length; i < len; i += 1) {
-                sum += durations[i];
-            }
-
-            func = function (duration) {
-                var d = duration / sum,
-                    newVibration = [],
-                    j,
-                    len2;
-
-                for (j = 0, len2 = durations.length; j < len2; j += 1) {
-                    newVibration.push(durations[j] * d);
-                }
-
-                Haptics.vibrate(newVibration);
-            };
+        } else if (typeof func !== "function" && func.length) {
+            func = createSequenceFunc(func);
+        } else {
+            return null;
         }
 
         function newSequence(args) {
