@@ -71,6 +71,7 @@
         }, d);
     }
 
+    // create a pattern function from a duration sequence
     function createSequenceFunc(durations) {
         var sum = 0, i = 0, len;
         for (i = 0, len = durations.length; i < len; i += 1) {
@@ -91,22 +92,10 @@
         };
     }
 
-    // a way to quickly create/compose new tactile animations
-    function patternFactory() {
-        var len,
-            j,
-            funcs = arguments; // each argument is a pattern being combined
-
-        len = funcs.length;
-
-        for (j = 0; j < len; j += 1) {
-            if (typeof funcs[j] !== "function") {
-                funcs[j] = createSequenceFunc(funcs[j]);
-            }
-        }
-
-        // create pattern that loops through and executes provided functions
-        function newPattern(duration) {
+    // create a single pattern function from a sequence of functions
+    function concatenatePatternFuncs() {
+        var funcs = arguments;
+        return function (duration) {
             var i = 0,
                 d = duration / len;
 
@@ -117,7 +106,25 @@
             for (i = 0; i < len; i += 1) {
                 global.setTimeout(executeCurrentFunc, d);
             }
+        };
+    }
+
+    // a way to quickly create/compose new tactile animations
+    function patternFactory() {
+        var len,
+            j,
+            newPattern,
+            funcs = arguments; // each argument is a pattern being combined
+
+        len = funcs.length;
+
+        for (j = 0; j < len; j += 1) {
+            if (typeof funcs[j] !== "function") {
+                funcs[j] = createSequenceFunc(funcs[j]);
+            }
         }
+
+        newPattern = concatenatePatternFuncs(funcs);
 
         return function (args) {
             if (typeof args === "number") {
