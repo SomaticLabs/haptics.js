@@ -94,7 +94,9 @@
 
     // create a single pattern function from a sequence of functions
     function concatenatePatternFuncs() {
-        var funcs = arguments;
+        var funcs = arguments,
+            len = arguments.length;
+
         return function (duration) {
             var i = 0,
                 d = duration / len;
