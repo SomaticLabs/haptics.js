@@ -138,7 +138,7 @@
     }
 
     // create a sequencing pattern function
-    function sequenceFactory(func) {
+    function createPattern(func) {
         if (arguments.length > 1) {
             func = patternFactory.apply(this, arguments);
         } else if (func && typeof func !== "function" && func.length) {
@@ -307,14 +307,14 @@
     Haptics.enabled = enabled;
     Haptics.record = record;
     Haptics.finish = finish;
-    Haptics.fadeIn = sequenceFactory(vibrateFadeIn);
-    Haptics.fadeOut = sequenceFactory(vibrateFadeOut);
-    Haptics.notification = sequenceFactory(vibrateNotification);
-    Haptics.heartbeat = sequenceFactory(vibrateHeartbeat);
-    Haptics.clunk = sequenceFactory(vibrateClunk);
+    Haptics.fadeIn = createPattern(vibrateFadeIn);
+    Haptics.fadeOut = createPattern(vibrateFadeOut);
+    Haptics.notification = createPattern(vibrateNotification);
+    Haptics.heartbeat = createPattern(vibrateHeartbeat);
+    Haptics.clunk = createPattern(vibrateClunk);
     Haptics.pwm = pwm;
     Haptics.createPatternPWM = pwmFactory;
-    Haptics.createPattern = sequenceFactory;
+    Haptics.createPattern = createPattern;
     Haptics.vibrate = vibrate;
 
     // set global object
