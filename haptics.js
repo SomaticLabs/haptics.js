@@ -141,9 +141,9 @@
     function sequenceFactory(func) {
         if (arguments.length > 1) {
             func = patternFactory.apply(this, arguments);
-        } else if (typeof func !== "function" && func.length) {
+        } else if (func && typeof func !== "function" && func.length) {
             func = createSequenceFunc(func);
-        } else {
+        } else if (func && typeof func !== "function") {
             return null;
         }
 
