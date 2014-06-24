@@ -297,7 +297,7 @@
     }
 
     // a way to quickly create new PWM intensity functions
-    function pwmFactory(on, off) {
+    function createPatternPWM(on, off) {
         return function (args) {
             pwm(args, on, off);
         };
@@ -313,7 +313,7 @@
     Haptics.heartbeat = createPattern(vibrateHeartbeat);
     Haptics.clunk = createPattern(vibrateClunk);
     Haptics.pwm = pwm;
-    Haptics.createPatternPWM = pwmFactory;
+    Haptics.createPatternPWM = createPatternPWM;
     Haptics.createPattern = createPattern;
     Haptics.vibrate = vibrate;
 
