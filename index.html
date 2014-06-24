@@ -102,12 +102,12 @@ Haptics.pwm(duration, on, off);</code></pre>
             <p><a href="#" class="btn btn-sm btn-default run-code"><span class="fa fa-angle-double-right"></span> Run Code</a></p>
             <p>The above code will create a vibration lasting 500ms consisting of small vibrotactile pulses lasting 30ms in duration with a 10ms gap between each pulse to reduce the overall intensity.</p>
             <h3>Creating PWM Functions</h3>
-            <p>You can create a shortcut for your own PWM settings using the <code>Haptics.pwmFactory</code> function. The code below delivers the same PWM pulse as the code above, but it creates a reusable function with the desired settings:</p>
-            <pre><code class="language-javascript" data-src="prism.js">var mediumPWM = Haptics.pwmFactory(30, 10);
+            <p>You can create a shortcut for your own PWM settings using the <code>Haptics.createPatternPWM</code> function. The code below delivers the same PWM pulse as the code above, but it creates a reusable function with the desired settings:</p>
+            <pre><code class="language-javascript" data-src="prism.js">var mediumPWM = Haptics.createPatternPWM(30, 10);
 mediumPWM(500);</code></pre>
             <p><a href="#" class="btn btn-sm btn-default run-code"><span class="fa fa-angle-double-right"></span> Run Code</a></p>
-            <p>Any functions created using <code>Haptics.pwmFactory</code> follow the same conventions as <code>Haptics.vibrate</code>, and also accept arrays as parameters:</p>
-            <pre><code class="language-javascript" data-src="prism.js">var mediumPWM = Haptics.pwmFactory(30, 10);
+            <p>Any functions created using <code>Haptics.createPatternPWM</code> follow the same conventions as <code>Haptics.vibrate</code>, and also accept arrays as parameters:</p>
+            <pre><code class="language-javascript" data-src="prism.js">var mediumPWM = Haptics.createPatternPWM(30, 10);
 mediumPWM([500, 100, 500]);</code></pre>
             <p><a href="#" class="btn btn-sm btn-default run-code"><span class="fa fa-angle-double-right"></span> Run Code</a></p>
           </section>
@@ -121,18 +121,18 @@ mediumPWM([500, 100, 500]);</code></pre>
     Haptics.vibrate([chunk, chunk, chunk]);
 }</code></pre>
             <p><a href="#" class="btn btn-sm btn-default run-code"><span class="fa fa-angle-double-right"></span> Run Code</a></p>
-            <p>The above pattern <code>newPattern</code> will take a duration and turn on the vibration motor for a third of the duration, pause for a third of the duration, and turn the motor on again for a third of the duration. To allow your pattern to accept arrays of integers, Haptics.js provides a <code>Haptics.sequenceFactory</code> utility:</p>
-            <pre><code class="language-javascript" data-src="prism.js">Haptics.thirdPattern = Haptics.sequenceFactory(newPattern);</code></pre>
+            <p>The above pattern <code>newPattern</code> will take a duration and turn on the vibration motor for a third of the duration, pause for a third of the duration, and turn the motor on again for a third of the duration. To allow your pattern to accept arrays of integers, Haptics.js provides a <code>Haptics.createPattern</code> utility:</p>
+            <pre><code class="language-javascript" data-src="prism.js">Haptics.thirdPattern = Haptics.createPattern(newPattern);</code></pre>
             <p>From here, the function <code>Haptics.thirdPattern</code> can be used just like <code>Haptics.vibrate</code> -- it will accept either an integer or an array of integer durations:</p>
             <pre><code class="language-javascript" data-src="prism.js">Haptics.thirdPattern([500, 100, 500]);
 Haptics.thirdPattern(500);</code></pre>
             <p><a href="#" class="btn btn-sm btn-default run-code"><span class="fa fa-angle-double-right"></span> Run Code</a></p>
             <h3>Create a Duration Array</h3>
             <p>The <code>Haptics.sequenceFactor</code> function doesn't just accept a function as a parameter -- it also accepts arrays. Instead of creating a function that takes the duration as input, you can specify integer values that act as ratios. This feature is easiest to illustrate with a quick example:</p>
-            <pre><code class="language-javascript" data-src="prism.js">Haptics.thirdPattern = Haptics.sequenceFactory([1, 1, 1]);</code></pre>
+            <pre><code class="language-javascript" data-src="prism.js">Haptics.thirdPattern = Haptics.createPattern([1, 1, 1]);</code></pre>
             <p><a href="#" class="btn btn-sm btn-default run-code"><span class="fa fa-angle-double-right"></span> Run Code</a></p>
             <p>The above code creates an equivalent <code>Haptics.thirdPattern</code> function with fewer lines of code. The ratios can be modified a little bit:</p>
-            <pre><code class="language-javascript" data-src="prism.js">Haptics.fifthPattern = Haptics.sequenceFactory([2, 1, 2]);
+            <pre><code class="language-javascript" data-src="prism.js">Haptics.fifthPattern = Haptics.createPattern([2, 1, 2]);
 Haptics.fifthPattern(500);</code></pre>
             <p><a href="#" class="btn btn-sm btn-default run-code"><span class="fa fa-angle-double-right"></span> Run Code</a></p>
             <p>The above code will result in a 200ms vibration, followed by a 100ms pause, followed by a 200ms vibration. Note that integer division is used to generate the final vibration pattern, so durations may be off by up to 1ms for each pulse.</p>
