@@ -1,8 +1,7 @@
 /*
- * haptics.js (https://github.com/EbookGlue/haptics.js)
- * Copyright (c) Shantanu Bala 2014
- * http://sbala.org/
- * shantanu@sbala.org
+ * Haptics.js (http://hapticsjs.org/)
+ * Copyright (c) Shantanu Bala (http://sbala.org/) 2014
+ * Direct questions to: shantanu@sbala.org
  * Available under the MIT License.
  */
 
