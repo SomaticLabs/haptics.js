@@ -1,8 +1,8 @@
 /*
- * Haptics.js (http://hapticsjs.org/)
- * Copyright (c) Shantanu Bala (http://sbala.org/) 2014
- * Direct questions to: shantanu@sbala.org
- * Available under the MIT License.
+ * Haptics.js - http://hapticsjs.org/
+ * Copyright (c) Shantanu Bala 2014
+ * Direct questions to shantanu@sbala.org
+ * Haptics.js can be freely distributed under the MIT License.
  */
 
 
