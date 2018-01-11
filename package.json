@@ -1,8 +1,8 @@
 {
   "name": "haptics",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A quick and easy interface for controlling the vibration motor on supported smartphones.",
-  "main": "haptics.js",
+  "main": "haptics.es.js",
   "directories": {
     "example": "example"
   },
